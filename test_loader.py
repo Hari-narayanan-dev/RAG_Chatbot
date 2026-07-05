@@ -1,13 +1,31 @@
 from app.ingestion.pdf_loader import PDFLoader
+from app.ingestion.text_splitter import TextSplitter
 
 
 loader = PDFLoader()
 
-pages = loader.load(r"data\documents\Python_tutorial.pdf")
+documents = loader.load(
+    r"data\documents\Python_tutorial.pdf"
+)
 
-print(f"Extracted pages: {len(pages)}")
+print(f"Pages extracted: {len(documents)}")
 
-for page in pages[:50]:
-    print("\n--- PAGE ---")
-    print(page["metadata"])
-    print(page["text"][:1000])
+
+splitter = TextSplitter(
+    chunk_size=100,
+    chunk_overlap=20,
+)
+
+chunks = splitter.split_documents(documents)
+
+print(f"Chunks created: {len(chunks)}")
+
+
+for chunk in chunks[50:55]:
+    print("\n" + "=" * 60)
+
+    print("METADATA:")
+    print(chunk["metadata"])
+
+    print("\nTEXT:")
+    print(chunk["text"])
