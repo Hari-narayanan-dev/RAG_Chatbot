@@ -1,1 +1,21 @@
+# Virtual Environment
+.venv/
+
+# Environment Variables
 .env
+
+# Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Mac
+.DS_Store
+
+# Vector Database
+vector_store/
+
+# Logs
+*.log
