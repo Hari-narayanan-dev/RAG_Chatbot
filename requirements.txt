@@ -1,3 +1,5 @@
 PyMuPDF
 sentence-transformers
 faiss-cpu
+dotenv
+google-genai
