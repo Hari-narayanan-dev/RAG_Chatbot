@@ -1,11 +1,12 @@
 from app.ingestion.pdf_loader import PDFLoader
 from app.ingestion.text_splitter import TextSplitter
+from app.ingestion.embedder import Embedder
 
 
 loader = PDFLoader()
 
 documents = loader.load(
-    r"data\documents\Python_tutorial.pdf"
+    r"C:\Users\hp\Desktop\Resume_projects\RAG_Chatbot\data\documents\Python_tutorial.pdf"
 )
 
 print(f"Pages extracted: {len(documents)}")
@@ -21,11 +22,15 @@ chunks = splitter.split_documents(documents)
 print(f"Chunks created: {len(chunks)}")
 
 
-for chunk in chunks[50:55]:
-    print("\n" + "=" * 60)
+embedder = Embedder()
 
-    print("METADATA:")
-    print(chunk["metadata"])
+embeddings = embedder.embed_documents(chunks)
 
-    print("\nTEXT:")
-    print(chunk["text"])
+
+print(f"Embedding shape: {embeddings.shape}")
+
+print("\nFirst chunk:")
+print(chunks[0]["text"][:300])
+
+print("\nFirst embedding:")
+print(embeddings[0][:10])
